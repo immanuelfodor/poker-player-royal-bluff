@@ -1,8 +1,9 @@
 import sys
+import random
 
 
 class Player:
-    VERSION = "fokin new strategy"
+    VERSION = "haha strategy"
 
     # Constant holding the weak pair hands when we have the same color
     WEAK_PAIR_HANDS = [
@@ -22,12 +23,35 @@ class Player:
         (3, 6)
     ]
 
+    # constant with strong 5 card hands
+    STRONG_HANDS = [
+        [{"rank": x, "suit": "hearts"} for x in ["A", "K", "Q", "J", "10"]], #royal flush hearts
+        [{"rank": x, "suit": "clubs"} for x in ["A", "K", "Q", "J", "10"]], #royal flush clubs
+        [{"rank": x, "suit": "diamonds"} for x in ["A", "K", "Q", "J", "10"]], #royal flush diamonds
+        [{"rank": x, "suit": "spades"} for x in ["A", "K", "Q", "J", "10"]] #royal flush spades
+    ]
+        
+        #[{"rank": x, "suit": "hearts"} for x in cards[]] for cards in ["K", "Q", "J", "10", "9", "8", "7", "6"][k:k+5] for k in range(3)
+        
+
     # Constant holding the face cards one-char symbol and their value
     FACE_CARDS = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
+    def same(self, expected_cards, actual_cards):
+        have_it = [False, False, False, False, False]
+        for act_card in actual_cards:
+            for index, exp_card in enumerate(expected_cards):
+                if act_card["rank"] == exp_card["rank"] and act_card["suit"] == exp_card["suit"]:
+                    have_it[index] = True
+        have_all = True
+        for have_this_card in have_it:
+            have_all = have_all and have_this_card
+        return have_all
 
     def unicode_repr(self, value):
         """
         Convert a value (string/int) to unicode object
+
         :param value: string or int
         :rtype: unicode obj
         """
@@ -37,6 +61,7 @@ class Player:
     def gen_diff_color_weak_pairs(self):
         """
         Generate weak pair hands. We use it when two cards are in different colors
+
         :rtype: list[tuple(unicode,unicode)]
         """
 
@@ -47,9 +72,6 @@ class Player:
                     face), self.unicode_repr(value))
                 diff_color_weak_pairs.append(new_unicode_pair)
         return diff_color_weak_pairs
-
-    def royal_flush(self, cards):
-        return False
 
     def before_flop(self, hole_cards):
         """
@@ -68,9 +90,10 @@ class Player:
         return 10000
 
     def after_flop(self, hole_cards, community_cards):
-        if self.royal_flush(hole_cards + community_cards):
-            return 10000
-
+        # if we have strong hands
+        for hand in self.STRONG_HANDS:
+            if self.same(hand, hole_cards + community_cards):
+                return 10000
 
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
@@ -79,7 +102,6 @@ class Player:
                     return 10000
 
         # if we have a pair
-
         if hole_cards[0]["rank"] == hole_cards[1]["rank"]:
             return 10000
 
@@ -98,12 +120,16 @@ class Player:
         community_cards = game_state["community_cards"]
         last_bet = players[in_action]["bet"]
         hole_cards = players[in_action]["hole_cards"]
-        print(hole_cards)
 
         if len(community_cards) == 0:
             return_bet = self.before_flop(hole_cards)
         else:
             return_bet = self.after_flop(hole_cards, community_cards)
+
+        if return_bet == 10000:  # if we want to go full retard, pls don't
+            return_bet = current_buy_in - last_bet + \
+                minimum_raise + random.randint(50, 300)
+                
         print(return_bet)
         print >> sys.stderr, return_bet
         return return_bet
