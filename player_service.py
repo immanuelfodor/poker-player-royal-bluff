@@ -1,16 +1,16 @@
 import time
 import cgi
 import json
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import BaseHTTPServer
 import os
 from player import Player
 
 
 HOST_NAME = '0.0.0.0'
-PORT_NUMBER = 'PORT' in os.environ and int(os.environ['PORT']) or 9000
+PORT_NUMBER = os.environ.has_key('PORT') and int(os.environ['PORT']) or 9000
 
 
-class PlayerService(BaseHTTPRequestHandler):
+class PlayerService(BaseHTTPServer.BaseHTTPRequestHandler):
 
     def do_POST(self):
 
@@ -46,12 +46,12 @@ class PlayerService(BaseHTTPRequestHandler):
         self.wfile.write(response)
 
 if __name__ == '__main__':
-    server_class = HTTPServer
+    server_class = BaseHTTPServer.HTTPServer
     httpd = server_class((HOST_NAME, PORT_NUMBER), PlayerService)
-    print(time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER))
+    print time.asctime(), "Server Starts - %s:%s" % (HOST_NAME, PORT_NUMBER)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
         pass
     httpd.server_close()
-    print(time.asctime(), "Server Stops - %s:%s" % (HOST_NAME, PORT_NUMBER))
+    print time.asctime(), "Server Stops - %s:%s" % (HOST_NAME, PORT_NUMBER)
