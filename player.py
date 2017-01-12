@@ -24,7 +24,7 @@ class Player:
         We check if we have weak hands in the beginning, and fold if we have. All in if not
         """
         for card in self.weak_pair_hands:
-            if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1] or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
+            if hole_cards[0]["rank"] in card and hole_cards[1]["rank"] in card:
                 return 0
         return 10000
 
