@@ -19,7 +19,7 @@ class Player:
         (3, 6)
     ]
 
-    def check_weak_pair_hands(self, hole_cards):
+    def before_flop(self, hole_cards):
         """
         We check if we have weak hands in the beginning, and fold if we have. All in if not
         """
@@ -27,6 +27,22 @@ class Player:
             if hole_cards[0]["rank"] in card and hole_cards[1]["rank"] in card:
                 return 0
         return 10000
+        
+    def after_flop(self, hole_cards, community_cards):
+        # if we have a match between hole and community cards in figure
+        for hole_card in hole_cards:
+            for com_card in community_cards:
+                if hole_card["rank"] == com_card["rank"]:
+                    return 10000
+        
+        # if we have a pair
+
+        if hole_cards[0]["rank"] == hole_cards[1]["rank"]:
+            return 10000
+
+        # else:
+        return 0
+
 
     def betRequest(self, game_state):
         # small_blind = game_state["small_blind"]
@@ -42,7 +58,10 @@ class Player:
         hole_cards = players[in_action]["hole_cards"]
         print(hole_cards)
 
-        return_bet = self.check_weak_pair_hands(hole_cards)
+        if len(community_cards) == 0:
+            return_bet = self.before_flop(hole_cards)
+        else:
+            return_bet = self.after_flop(hole_cards, community_cards)
         return return_bet
 
     def showdown(self, game_state):
