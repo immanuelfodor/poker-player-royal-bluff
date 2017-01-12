@@ -1,9 +1,11 @@
 import sys
 
-class Player:
-    VERSION = "Default Python folding player +2"
 
-    weak_pair_hands = [
+class Player:
+    VERSION = "fokin new strategy"
+
+    # Constant holding the weak pair hands when we have the same color
+    WEAK_PAIR_HANDS = [
         (2, 7),
         (2, 8),
         (3, 8),
@@ -20,8 +22,36 @@ class Player:
         (3, 6)
     ]
 
+    # Constant holding the face cards one-char symbol and their value
+    FACE_CARDS = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
+    def unicode_repr(self, value):
+        """
+        Convert a value (string/int) to unicode object
+
+        :param value: string or int
+        :rtype: unicode obj
+        """
+
+        return unicode(str(value), "utf-8")
+
+    def gen_diff_color_weak_pairs(self):
+        """
+        Generate weak pair hands. We use it when two cards are in different colors
+
+        :rtype: list[tuple(unicode,unicode)]
+        """
+
+        diff_color_weak_pairs = []
+        for face in self.FACE_CARDS.keys():
+            for value in range(2, 6):
+                new_unicode_pair = (self.unicode_repr(
+                    face), self.unicode_repr(value))
+                diff_color_weak_pairs.append(new_unicode_pair)
+        return diff_color_weak_pairs
+
     def royal_flush(self, cards):
-	    return false
+        return false
 
     def before_flop(self, hole_cards):
         """
@@ -29,8 +59,14 @@ class Player:
         """
         our_tuple = (hole_cards[0]["rank"], hole_cards[1]["rank"])
         reversed_tuple = (our_tuple[1], our_tuple[0])
-        if our_tuple in self.weak_pair_hands or reversed_tuple in self.weak_pair_hands:
-            return 0
+
+        if hole_cards[0]["suit"] == hole_cards[1]["suit"]:
+            if our_tuple in self.WEAK_PAIR_HANDS or reversed_tuple in self.WEAK_PAIR_HANDS:
+                return 0
+        else:
+            diff_color_weak_pairs = self.gen_diff_color_weak_pairs()
+            if our_tuple in diff_color_weak_pairs or reversed_tuple in diff_color_weak_pairs:
+                return 0
         return 10000
 
     def after_flop(self, hole_cards, community_cards):
