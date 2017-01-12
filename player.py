@@ -1,3 +1,4 @@
+import sys
 
 class Player:
     VERSION = "Default Python folding player +2"
@@ -65,6 +66,8 @@ class Player:
             return_bet = self.before_flop(hole_cards)
         else:
             return_bet = self.after_flop(hole_cards, community_cards)
+        print(return_bet)
+        print >> sys.stderr, return_bet
         return return_bet
 
     def showdown(self, game_state):
