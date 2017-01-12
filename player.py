@@ -23,18 +23,19 @@ class Player:
         """
         We check if we have weak hands in the beginning, and fold if we have. All in if not
         """
-        for card in self.weak_pair_hands:
-            if hole_cards[0]["rank"] in card and hole_cards[1]["rank"] in card:
-                return 0
+        our_tuple = (hole_cards[0]["rank"], hole_cards[1]["rank"])
+        reversed_tuple = (our_tuple[1], our_tuple[0])
+        if our_tuple in self.weak_pair_hands or reversed_tuple in self.weak_pair_hands:
+            return 0
         return 10000
-        
+
     def after_flop(self, hole_cards, community_cards):
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
             for com_card in community_cards:
                 if hole_card["rank"] == com_card["rank"]:
                     return 10000
-        
+
         # if we have a pair
 
         if hole_cards[0]["rank"] == hole_cards[1]["rank"]:
@@ -42,7 +43,6 @@ class Player:
 
         # else:
         return 0
-
 
     def betRequest(self, game_state):
         # small_blind = game_state["small_blind"]
