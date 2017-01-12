@@ -129,8 +129,9 @@ class Player:
         if return_bet == 10000:  # if we want to go full retard, pls don't
             return_bet = current_buy_in - last_bet + \
                 minimum_raise + random.randint(50, 300)
-                
+
         print(return_bet)
+        print(community_cards)
         print >> sys.stderr, return_bet
         return return_bet
 
