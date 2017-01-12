@@ -2,7 +2,7 @@ import sys
 import constants
 
 class Player:
-    VERSION = "fokin new strategy"
+    VERSION = "royal flush strategy"
 
     # Constant holding the weak pair hands when we have the same color
     WEAK_PAIR_HANDS = [
@@ -32,31 +32,6 @@ class Player:
         for have_this_card in have_it:
             have_all = have_all and have_this_card
         return have_all
-
-    def royal_flush(self, cards):
-        royal_flush_cards = [
-            {
-                "rank": "10",
-                "suit": "hearts"
-            },
-            {
-                "rank": "J",
-                "suit": "hearts"
-            },
-            {
-                "rank": "Q",
-                "suit": "hearts"
-            },
-            {
-                "rank": "K",
-                "suit": "hearts"
-            },
-            {
-                "rank": "A",
-                "suit": "hearts"
-            }
-        ]
-        return False
 
     def unicode_repr(self, value):
         """
@@ -100,9 +75,10 @@ class Player:
         return 10000
 
     def after_flop(self, hole_cards, community_cards):
-        if self.royal_flush(hole_cards + community_cards):
-            return 10000
-
+        # if we have strong hands
+        for hand in STRONG_HANDS:
+            if self.same(hand, hole_cards + community_cards):
+                return 10000
 
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
@@ -111,7 +87,6 @@ class Player:
                     return 10000
 
         # if we have a pair
-
         if hole_cards[0]["rank"] == hole_cards[1]["rank"]:
             return 10000
 
