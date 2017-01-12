@@ -25,7 +25,7 @@ class Player:
 	have_it = [False, False, False, False, False]
 	for act_card in actual_cards:
             for index, exp_card in enumerate(expected_cards):
-                if act_card["rank"] == exp_card["rank"] and act_card[suit] == exp_card[suit]:
+                if act_card["rank"] == exp_card["rank"] and act_card["suit"] == exp_card["suit"]:
                     have_it[index] = True
 	have_all = True
         for have_this_card in have_it:
