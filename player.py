@@ -3,7 +3,7 @@ class Player:
     VERSION = "Default Python folding player +2"
 
     def betRequest(self, game_state):
-        small_blind = game_state["small_blind"]
+        # small_blind = game_state["small_blind"]
         current_buy_in = game_state["current_buy_in"]
         pot = game_state["pot"]
         minimum_raise = game_state["minimum_raise"]
