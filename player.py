@@ -19,6 +19,9 @@ class Player:
         (3, 6)
     ]
 
+    def royal_flush(self, cards):
+	return false
+
     def before_flop(self, hole_cards):
         """
         We check if we have weak hands in the beginning, and fold if we have. All in if not
