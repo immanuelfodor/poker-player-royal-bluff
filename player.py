@@ -25,14 +25,17 @@ class Player:
 
     # constant with strong 5 card hands
     STRONG_HANDS = [
-        [{"rank": x, "suit": "hearts"} for x in ["A", "K", "Q", "J", "10"]], #royal flush hearts
-        [{"rank": x, "suit": "clubs"} for x in ["A", "K", "Q", "J", "10"]], #royal flush clubs
-        [{"rank": x, "suit": "diamonds"} for x in ["A", "K", "Q", "J", "10"]], #royal flush diamonds
-        [{"rank": x, "suit": "spades"} for x in ["A", "K", "Q", "J", "10"]] #royal flush spades
+        [{"rank": x, "suit": "hearts"}
+            for x in ["A", "K", "Q", "J", "10"]],  # royal flush hearts
+        [{"rank": x, "suit": "clubs"}
+            for x in ["A", "K", "Q", "J", "10"]],  # royal flush clubs
+        [{"rank": x, "suit": "diamonds"}
+            for x in ["A", "K", "Q", "J", "10"]],  # royal flush diamonds
+        [{"rank": x, "suit": "spades"}
+            for x in ["A", "K", "Q", "J", "10"]]  # royal flush spades
     ]
-        
-        #[{"rank": x, "suit": "hearts"} for x in cards[]] for cards in ["K", "Q", "J", "10", "9", "8", "7", "6"][k:k+5] for k in range(3)
-        
+
+    #[{"rank": x, "suit": "hearts"} for x in cards[]] for cards in ["K", "Q", "J", "10", "9", "8", "7", "6"][k:k+5] for k in range(3)
 
     # Constant holding the face cards one-char symbol and their value
     FACE_CARDS = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
@@ -91,9 +94,9 @@ class Player:
 
     def after_flop(self, hole_cards, community_cards):
         # if we have strong hands
-        for hand in self.STRONG_HANDS:
-            if self.same(hand, hole_cards + community_cards):
-                return 10000
+        # for hand in self.STRONG_HANDS:
+        #     if self.same(hand, hole_cards + community_cards):
+        #         return 10000
 
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
@@ -129,7 +132,7 @@ class Player:
         if return_bet == 10000:  # if we want to go full retard, pls don't
             return_bet = current_buy_in - last_bet + \
                 minimum_raise + random.randint(50, 300)
-                
+
         print(return_bet)
         print >> sys.stderr, return_bet
         return return_bet
