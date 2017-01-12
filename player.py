@@ -1,6 +1,6 @@
 
 class Player:
-    VERSION = "Default Python folding player+1"
+    VERSION = "Default Python folding player"
 
     def betRequest(self, game_state):
         return 0
