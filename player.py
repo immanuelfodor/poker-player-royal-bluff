@@ -1,29 +1,8 @@
 import sys
-
+import constants
 
 class Player:
     VERSION = "fokin new strategy"
-
-    # Constant holding the weak pair hands when we have the same color
-    WEAK_PAIR_HANDS = [
-        (2, 7),
-        (2, 8),
-        (3, 8),
-        (3, 7),
-        (2, 6),
-        (2, 9),
-        (3, 9),
-        (4, 9),
-        (2, 10),
-        (5, 9),
-        (4, 7),
-        (4, 8),
-        (5, 8),
-        (3, 6)
-    ]
-
-    # Constant holding the face cards one-char symbol and their value
-    FACE_CARDS = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
 
     def unicode_repr(self, value):
         """
@@ -43,7 +22,7 @@ class Player:
         """
 
         diff_color_weak_pairs = []
-        for face in self.FACE_CARDS.keys():
+        for face in FACE_CARDS.keys():
             for value in range(2, 6):
                 new_unicode_pair = (self.unicode_repr(
                     face), self.unicode_repr(value))
@@ -61,7 +40,7 @@ class Player:
         reversed_tuple = (our_tuple[1], our_tuple[0])
 
         if hole_cards[0]["suit"] == hole_cards[1]["suit"]:
-            if our_tuple in self.WEAK_PAIR_HANDS or reversed_tuple in self.WEAK_PAIR_HANDS:
+            if our_tuple in WEAK_PAIR_HANDS or reversed_tuple in WEAK_PAIR_HANDS:
                 return 0
         else:
             diff_color_weak_pairs = self.gen_diff_color_weak_pairs()
