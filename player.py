@@ -4,7 +4,8 @@ import sys
 class Player:
     VERSION = "fokin new strategy"
 
-    weak_pair_hands = [
+    # Constant holding the weak pair hands when we have the same color
+    WEAK_PAIR_HANDS = [
         (2, 7),
         (2, 8),
         (3, 8),
@@ -60,7 +61,7 @@ class Player:
         reversed_tuple = (our_tuple[1], our_tuple[0])
 
         if hole_cards[0]["suit"] == hole_cards[1]["suit"]:
-            if our_tuple in self.weak_pair_hands or reversed_tuple in self.weak_pair_hands:
+            if our_tuple in self.WEAK_PAIR_HANDS or reversed_tuple in self.WEAK_PAIR_HANDS:
                 return 0
         else:
             diff_color_weak_pairs = self.gen_diff_color_weak_pairs()
