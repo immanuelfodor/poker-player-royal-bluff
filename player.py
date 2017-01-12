@@ -94,9 +94,9 @@ class Player:
 
     def after_flop(self, hole_cards, community_cards):
         # if we have strong hands
-        for hand in self.STRONG_HANDS:
-            if self.same(hand, hole_cards + community_cards):
-                return 10000
+        #for hand in self.STRONG_HANDS:
+        #    if self.same(hand, hole_cards + community_cards):
+        #        return 10000
 
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
