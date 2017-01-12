@@ -19,10 +19,9 @@ class Player:
             [2,7],[2,8],[3,8],[3,7],[2,6],[2,9],[3,9],[4,9],[2,10],[5,9],[4,7],[4,8],[5,8],[3,6]
         ]
 
-        for card in weak_hands
-            if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1]
-                or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
-            return 0
+        for card in weak_hands:
+            if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1] or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
+                return 0
             else:
                 return 10000
 
