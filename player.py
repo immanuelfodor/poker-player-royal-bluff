@@ -2,6 +2,32 @@
 class Player:
     VERSION = "Default Python folding player +2"
 
+    weak_pair_hands = [
+        (2, 7),
+        (2, 8),
+        (3, 8),
+        (3, 7),
+        (2, 6),
+        (2, 9),
+        (3, 9),
+        (4, 9),
+        (2, 10),
+        (5, 9),
+        (4, 7),
+        (4, 8),
+        (5, 8),
+        (3, 6)
+    ]
+
+    def check_weak_pair_hands(self, hole_cards):
+        """
+        We check if we have weak hands in the beginning, and fold if we have. All in if not
+        """
+        for card in self.weak_pair_hands:
+            if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1] or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
+                return 0
+        return 10000
+
     def betRequest(self, game_state):
         # small_blind = game_state["small_blind"]
         current_buy_in = game_state["current_buy_in"]
@@ -15,15 +41,8 @@ class Player:
         last_bet = players[in_action]["bet"]
         hole_cards = players[in_action]["hole_cards"]
         print(hole_cards)
-        weak_hands = [
-            [2,7],[2,8],[3,8],[3,7],[2,6],[2,9],[3,9],[4,9],[2,10],[5,9],[4,7],[4,8],[5,8],[3,6]
-        ]
 
-        for card in weak_hands:
-            if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1] or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
-                return 0
-        
-        return 10000
+        self.check_weak_pair_hands(hole_cards)
 
     def showdown(self, game_state):
         pass
