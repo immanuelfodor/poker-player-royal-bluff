@@ -18,6 +18,19 @@ class Player:
         (3, 6)
     ]
 
+    def same(self, expected_cards, actual_cards):
+	have_it = [False, False, False, False, False]
+	for act_card in actual_cards:
+            for index, exp_card in enumerate(expected_cards):
+                if act_card["rank"] == exp_card["rank"] and act_card[suit] == exp_card[suit]:
+                    have_it[index] = True
+	have_all = True
+        for have_this_card in have_it:
+	    have_all = have_all and have_this_card
+        return have_all        
+ 		
+
+
     def royal_flush(self, cards):
         royal_flush_cards = [
             {
@@ -40,7 +53,7 @@ class Player:
                 "rank": "A",
                 "suit": "hearts"
             }
-            ]
+        ]
 
 
         return false
