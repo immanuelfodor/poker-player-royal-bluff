@@ -3,7 +3,7 @@ import random
 
 
 class Player:
-    VERSION = "haha strategy"
+    VERSION = "let others win strategy :P"
 
     # Constant holding the weak pair hands when we have the same color
     WEAK_PAIR_HANDS = [
