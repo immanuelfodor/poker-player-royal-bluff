@@ -113,7 +113,7 @@ class Player:
             return_bet = self.before_flop(hole_cards)
             if return_bet == 10000:  # if we want to go full retard, pls don't
                 return_bet = current_buy_in - last_bet + \
-                    minimum_raise + random.randint(3, 50)
+                    minimum_raise + random.randint(50, 300)
         else:
             return_bet = self.after_flop(hole_cards, community_cards)
         print(return_bet)
