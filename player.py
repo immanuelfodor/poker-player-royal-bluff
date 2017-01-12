@@ -1,10 +1,9 @@
 
 class Player:
-    VERSION = "Default Python folding player"
+    VERSION = "Not so winning strategy"
 
     def betRequest(self, game_state):
         return 10000
 
     def showdown(self, game_state):
         pass
-
