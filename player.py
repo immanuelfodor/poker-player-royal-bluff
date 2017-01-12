@@ -1,4 +1,3 @@
-
 class Player:
     VERSION = "Default Python folding player +2"
 
@@ -20,7 +19,31 @@ class Player:
     ]
 
     def royal_flush(self, cards):
-	return false
+        royal_flush_cards = [
+            {
+                "rank": "10",
+                "suit": "hearts"
+            },
+            {
+                "rank": "J",
+                "suit": "hearts"
+            },
+            {
+                "rank": "Q",
+                "suit": "hearts"
+            },
+            {
+                "rank": "K",
+                "suit": "hearts"
+            },
+            {
+                "rank": "A",
+                "suit": "hearts"
+            }
+            ]
+
+
+        return false
 
     def before_flop(self, hole_cards):
         """
