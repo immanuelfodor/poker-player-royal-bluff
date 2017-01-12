@@ -24,6 +24,22 @@ class Player:
         (3, 6)
     ]
 
+    # constant with strong 5 card hands
+    STRONG_HANDS = [
+        [{"rank": x, "suit": "hearts"} for x in ["A", "K", "Q", "J", "10"]], #royal flush hearts
+        [{"rank": x, "suit": "clubs"} for x in ["A", "K", "Q", "J", "10"]], #royal flush clubs
+        [{"rank": x, "suit": "diamonds"} for x in ["A", "K", "Q", "J", "10"]], #royal flush diamonds
+        [{"rank": x, "suit": "spades"} for x in ["A", "K", "Q", "J", "10"]] #royal flush spades
+    ]
+        
+        #[{"rank": x, "suit": "hearts"} for x in cards[]] for cards in ["K", "Q", "J", "10", "9", "8", "7", "6"][k:k+5] for k in range(3)
+        
+        
+        #straight flush hearts
+
+    # Constant holding the face cards one-char symbol and their value
+    FACE_CARDS = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+
     def same(self, expected_cards, actual_cards):
         have_it = [False, False, False, False, False]
         for act_card in actual_cards:
@@ -68,7 +84,7 @@ class Player:
         reversed_tuple = (our_tuple[1], our_tuple[0])
 
         if hole_cards[0]["suit"] == hole_cards[1]["suit"]:
-            if our_tuple in WEAK_PAIR_HANDS or reversed_tuple in WEAK_PAIR_HANDS:
+            if our_tuple in self.WEAK_PAIR_HANDS or reversed_tuple in self.WEAK_PAIR_HANDS:
                 return 0
         else:
             diff_color_weak_pairs = self.gen_diff_color_weak_pairs()
@@ -78,7 +94,7 @@ class Player:
 
     def after_flop(self, hole_cards, community_cards):
         # if we have strong hands
-        for hand in STRONG_HANDS:
+        for hand in self.STRONG_HANDS:
             if self.same(hand, hole_cards + community_cards):
                 return 10000
 
