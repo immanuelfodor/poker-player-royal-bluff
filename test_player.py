@@ -30,7 +30,7 @@ class TestPlayer(unittest.TestCase):
         player = Player()
         self.assertTrue(player.same(cards1, cards2))
 
-   def test_same_diff(self):
+    def test_same_diff(self):
         cards1 = [
             {
                 "rank": "10",
