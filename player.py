@@ -22,8 +22,8 @@ class Player:
         for card in weak_hands:
             if hole_cards[0]["rank"] == card[0] or hole_cards[1]["rank"] == card[1] or hole_cards[0]["rank"] == card[1] or hole_cards[1]["rank"] == card[0]:
                 return 0
-            else:
-                return 10000
+        
+        return 10000
 
     def showdown(self, game_state):
         pass
