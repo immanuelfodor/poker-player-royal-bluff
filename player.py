@@ -34,6 +34,10 @@ class Player:
         return 10000
 
     def after_flop(self, hole_cards, community_cards):
+        if self.royal_flush(hole_cards + community_cards):
+            return 10000
+
+
         # if we have a match between hole and community cards in figure
         for hole_card in hole_cards:
             for com_card in community_cards:
