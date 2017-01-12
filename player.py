@@ -1,8 +1,10 @@
 import sys
 import constants
+import random
+
 
 class Player:
-    VERSION = "royal flush strategy"
+    VERSION = "haha strategy"
 
     # Constant holding the weak pair hands when we have the same color
     WEAK_PAIR_HANDS = [
@@ -109,6 +111,9 @@ class Player:
 
         if len(community_cards) == 0:
             return_bet = self.before_flop(hole_cards)
+            if return_bet == 10000:  # if we want to go full retard, pls don't
+                return_bet = current_buy_in - last_bet + \
+                    minimum_raise + random.randint(3, 50)
         else:
             return_bet = self.after_flop(hole_cards, community_cards)
         print(return_bet)
