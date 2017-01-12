@@ -49,7 +49,7 @@ class Player:
         return diff_color_weak_pairs
 
     def royal_flush(self, cards):
-        return false
+        return False
 
     def before_flop(self, hole_cards):
         """
