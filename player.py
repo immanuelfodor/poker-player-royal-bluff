@@ -42,7 +42,8 @@ class Player:
         hole_cards = players[in_action]["hole_cards"]
         print(hole_cards)
 
-        self.check_weak_pair_hands(hole_cards)
+        return_bet = self.check_weak_pair_hands(hole_cards)
+        return return_bet
 
     def showdown(self, game_state):
         pass
