@@ -4,6 +4,60 @@ import constants
 class Player:
     VERSION = "fokin new strategy"
 
+    # Constant holding the weak pair hands when we have the same color
+    WEAK_PAIR_HANDS = [
+        (2, 7),
+        (2, 8),
+        (3, 8),
+        (3, 7),
+        (2, 6),
+        (2, 9),
+        (3, 9),
+        (4, 9),
+        (2, 10),
+        (5, 9),
+        (4, 7),
+        (4, 8),
+        (5, 8),
+        (3, 6)
+    ]
+
+    def same(self, expected_cards, actual_cards):
+        have_it = [False, False, False, False, False]
+        for act_card in actual_cards:
+            for index, exp_card in enumerate(expected_cards):
+                if act_card["rank"] == exp_card["rank"] and act_card[suit] == exp_card[suit]:
+                    have_it[index] = True
+        have_all = True
+        for have_this_card in have_it:
+            have_all = have_all and have_this_card
+        return have_all
+
+    def royal_flush(self, cards):
+        royal_flush_cards = [
+            {
+                "rank": "10",
+                "suit": "hearts"
+            },
+            {
+                "rank": "J",
+                "suit": "hearts"
+            },
+            {
+                "rank": "Q",
+                "suit": "hearts"
+            },
+            {
+                "rank": "K",
+                "suit": "hearts"
+            },
+            {
+                "rank": "A",
+                "suit": "hearts"
+            }
+        ]
+        return False
+
     def unicode_repr(self, value):
         """
         Convert a value (string/int) to unicode object
@@ -28,9 +82,6 @@ class Player:
                     face), self.unicode_repr(value))
                 diff_color_weak_pairs.append(new_unicode_pair)
         return diff_color_weak_pairs
-
-    def royal_flush(self, cards):
-        return false
 
     def before_flop(self, hole_cards):
         """
