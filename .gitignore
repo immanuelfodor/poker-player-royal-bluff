@@ -36,3 +36,6 @@ nosetests.xml
 .pydevproject
 
 .idea
+
+# VS Code folder
+.vscode
